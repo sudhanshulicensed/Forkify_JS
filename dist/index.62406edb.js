@@ -1,44 +1,38 @@
-const recipeContainer = document.querySelector('.recipe');
-
-const timeout = function (s) {
-  return new Promise(function (_, reject) {
-    setTimeout(function () {
-      reject(new Error(`Request took too long! Timeout after ${s} second`));
-    }, s * 1000);
-  });
+const recipeContainer = document.querySelector(".recipe");
+const timeout = function(s) {
+    return new Promise(function(_, reject) {
+        setTimeout(function() {
+            reject(new Error(`Request took too long! Timeout after ${s} second`));
+        }, s * 1000);
+    });
 };
-
 // https://forkify-api.herokuapp.com/v2
-
 ///////////////////////////////////////
 //Making AJAX Req. using fetch function
-
 const showRecipe = async function() {
-  //Loading Recipe
-  try{
-    const res = await fetch('https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886');
-    // const res = await fetch('https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bcc13');
-    const data = await res.json();
-    console.log("Res:", res, "Data:", data);
-    if(!res.ok){
-      throw new Error(`${data.message} (${res.status})`);
-    }
-  //Changing bad naming structure in respomse
-  let {recipe} = data.data;
-  console.log(recipe);
-  recipe = {
-    id: recipe.id,
-    title: recipe.title,
-    publisher: recipe.publisher,
-    sourceUrl: recipe.source_url,
-    image: recipe.image_url,
-    servings: recipe.servings,
-    cookingTime: recipe.cooking_time,
-    ingredients: recipe.ingredients
-  }
-  console.log(recipe);
-  //Rendering Recipe
-  const markup = `
+    //Loading Recipe
+    try {
+        const res = await fetch("https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bc886");
+        // const res = await fetch('https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bcc13');
+        const data = await res.json();
+        console.log("Res:", res, "Data:", data);
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        //Changing bad naming structure in respomse
+        let { recipe  } = data.data;
+        console.log(recipe);
+        recipe = {
+            id: recipe.id,
+            title: recipe.title,
+            publisher: recipe.publisher,
+            sourceUrl: recipe.source_url,
+            image: recipe.image_url,
+            servings: recipe.servings,
+            cookingTime: recipe.cooking_time,
+            ingredients: recipe.ingredients
+        };
+        console.log(recipe);
+        //Rendering Recipe
+        const markup = `
     <div class="spinner">
         <svg>
           <use href="src/img/icons.svg#icon-loader"></use>
@@ -148,10 +142,11 @@ const showRecipe = async function() {
       </a>
     </div>
   `;
-  } catch (err) {
-    console.log(err);
-    alert(err);
-  }
-}
-
+    } catch (err) {
+        console.log(err);
+        alert(err);
+    }
+};
 showRecipe();
+
+//# sourceMappingURL=index.62406edb.js.map
